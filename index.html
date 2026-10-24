@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6ead6">
-<title>まりもだらけ v2</title>
+<title>まりもだらけ v3 — アプリ版</title>
 <style>
 :root {
   --bg1:#fff9f2;
@@ -110,6 +110,82 @@ textarea#importData { width:100%; min-height:92px; border-radius:16px; border:2p
 .hidden { display:none!important; }
 @media (max-width: 1050px) { .main { grid-template-columns:1fr; } .summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .log-grid { grid-template-columns:1fr; } .stage { min-height:560px; } }
 @media (max-width: 620px) { body { padding-inline:10px; } .header { padding:14px; border-radius:20px; } .brand img { width:58px; } .summary { grid-template-columns:1fr 1fr; } .mini .v { font-size:1.1rem; } .stage { min-height:520px; } .box-area { inset:132px 8px 152px; } #boxButton .hint { bottom:-28px; font-size:.82rem; } .runner { width:74px; } .row { grid-template-columns:56px 1fr; } .row .icon { width:56px; height:56px; } .row .buy-slot { grid-column:1/-1; display:flex; justify-content:flex-end; } .colony-cat { width:48px; } }
+
+/* v3: fixed, application-like 60/40 workspace */
+html, body {height:100%; overflow:hidden; overscroll-behavior:none;}
+body {height:100dvh; padding:8px;}
+.app {height:100%; max-width:none; display:grid; grid-template-rows:auto minmax(0,1fr); gap:8px; min-height:0;}
+.header {border-radius:16px; box-shadow:none; padding:7px 12px; gap:10px;}
+.brand img {width:48px;}
+.brand h1 {font-size:clamp(1.15rem,2.2vw,1.6rem);}
+.brand p {display:none;}
+.summary {min-width:0; flex:0 1 660px; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px;}
+.mini {min-height:0; padding:6px 8px; border-width:1px; border-radius:10px;}
+.mini .k {font-size:.68rem;white-space:nowrap;}
+.mini .v {font-size:.95rem;margin-top:2px;white-space:nowrap;}
+.main {height:100%;min-height:0; display:grid; grid-template-columns:minmax(0,3fr) minmax(340px,2fr);grid-template-rows:minmax(0,1fr);gap:8px;}
+.main > .card {min-height:0; height:100%; display:flex; flex-direction:column;}
+.card {border-radius:16px; box-shadow:none;}
+.stage-wrap {height:100%; min-height:0; display:flex; flex-direction:column; padding:8px;}
+.stage-header {margin-bottom:5px; flex:0 0 auto;}
+.stage-header h2 {font-size:.92rem;}
+.stage-header p,.stage-meta,.log-wrap {display:none;}
+.stage {flex:1; min-height:0; height:auto; border-radius:13px;}
+.box-area {inset:19% 4% 20%;}
+#boxSprite {width:auto; height:100%; max-width:100%; max-height:100%; object-fit:contain;}
+#boxButton {height:100%; max-width:100%;}
+#boxButton .hint {bottom:0;}
+.info-strip {top:8px;left:8px;max-width:95%;}
+.info-pill {padding:4px 6px;font-size:.73rem;border-width:1px;}
+.info-pill small {display:none;}
+.colony-title {display:none;}
+.side {min-height:0;height:100%; display:block;}
+.app-controls {height:100%; min-height:0; display:flex;flex-direction:column;}
+.tabs {flex:0 0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:7px 7px 6px;border-bottom:1px solid var(--line);}
+.tab {border-radius:10px;padding:10px 2px;font-size:.77rem;white-space:nowrap;border-width:1px;}
+.panel-body.game-panel-scroll {flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:9px;}
+.row {grid-template-columns:52px minmax(0,1fr) auto;padding:7px;border-radius:13px;gap:7px;}
+.row .icon {width:52px;height:52px;border-radius:10px;}
+.row .txt h4 {font-size:.9rem;}
+.row .txt .sub {font-size:.76rem;}
+.row .txt .meta {font-size:.76rem;margin-top:3px;}
+.buy-btn {min-width:0;padding:9px 8px;font-size:.76rem;}
+@media(max-width:780px) {
+ body {padding: max(4px,env(safe-area-inset-top)) 5px max(5px,env(safe-area-inset-bottom));}
+ .app {gap:5px;}
+ .header {padding:5px 7px;gap:5px;border-radius:12px;}
+ .brand {gap:5px;}
+ .brand img {width:33px;}
+ .brand h1 {font-size:1.02rem;white-space:nowrap;}
+ .summary {flex:1;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;}
+ .mini {padding:4px 3px;border-radius:8px;text-align:center;}
+ .mini .k {font-size:.54rem;letter-spacing:-.03em;}
+ .mini .v {font-size:.70rem;letter-spacing:-.05em;}
+ .main {grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,3fr) minmax(0,2fr);gap:5px;}
+ .stage-header {display:none;}
+ .stage-wrap {padding:5px;}
+ .stage {min-height:0;}
+ .box-area {inset:16% 3% 19%;}
+ #boxButton .hint {font-size:.7rem;padding:3px 9px;bottom:0;}
+ .info-pill {font-size:.64rem;padding:3px 4px;}
+ .cloud {opacity:.5;}
+ .colony-ground {bottom:48px;}
+ .colony-cat {bottom:55px!important;width:42px;}
+ .cityline {bottom:18px;}
+ .wires {bottom:0;}
+ .tabs {padding:5px 4px;gap:2px;}
+ .tab {padding:9px 1px;font-size:.65rem;}
+ .panel-body.game-panel-scroll {padding:6px;}
+ .row {grid-template-columns:42px minmax(0,1fr) auto;gap:5px;padding:5px;}
+ .row .icon {width:42px;height:42px;}
+ .row .buy-slot {grid-column:auto;}
+ .row .txt .sub {display:none;}
+ .row .txt h4 {font-size:.82rem;}
+ .row .txt .meta {font-size:.71rem;}
+ .buy-btn {font-size:.67rem;padding:8px 5px;}
+ .sun {width:65px;height:65px;}
+}
+@media(max-width:390px) {.brand img{display:none}.mini .k{font-size:.49rem}.mini .v{font-size:.64rem}}
 </style>
 </head>
 <body>
@@ -187,29 +263,17 @@ textarea#importData { width:100%; min-height:92px; border-radius:16px; border:2p
     </div>
 
     <aside class="side">
-      <section class="card">
-        <div class="panel-header">
-          <h2>おみせ</h2>
-          <p>施設を増やして、まりもが勝手に増える流れを作ろう。</p>
+      <section class="card app-controls">
+        <div class="tabs" role="tablist" aria-label="操作メニュー">
+          <button class="tab active" data-tab="shop" role="tab" aria-selected="true">📦 おみせ</button>
+          <button class="tab" data-tab="upgrades" role="tab" aria-selected="false">✨ 強化</button>
+          <button class="tab" data-tab="achievements" role="tab" aria-selected="false">🏆 実績</button>
+          <button class="tab" data-tab="prestige" role="tab" aria-selected="false">🌿 転生</button>
+          <button class="tab" data-tab="save" role="tab" aria-selected="false">⚙️ 保存</button>
         </div>
-        <div class="panel-body">
-          <div class="shop-list" id="buildingsList"></div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="panel-header">
-          <h2>研究ノート</h2>
-          <p>v2の作り込み要素もここに全部入れてあるで。</p>
-        </div>
-        <div class="tabs">
-          <button class="tab active" data-tab="upgrades">強化</button>
-          <button class="tab" data-tab="achievements">実績</button>
-          <button class="tab" data-tab="prestige">転生</button>
-          <button class="tab" data-tab="save">保存</button>
-        </div>
-        <div class="panel-body">
-          <div class="tab-pane active" id="tab-upgrades">
+        <div class="panel-body game-panel-scroll">
+          <div class="tab-pane active" id="tab-shop"><div class="shop-list" id="buildingsList"></div></div>
+          <div class="tab-pane" id="tab-upgrades">
             <div class="shop-list" id="upgradesList"></div>
           </div>
           <div class="tab-pane" id="tab-achievements">
@@ -240,8 +304,8 @@ textarea#importData { width:100%; min-height:92px; border-radius:16px; border:2p
               </div>
             </div>
           </div>
+
         </div>
-        <div class="footer-note">※ まりもの単位は全部「ぴき」。同じ三毛猫だけが増える仕様や。</div>
       </section>
     </aside>
   </section>
@@ -854,14 +918,14 @@ textarea#importData { width:100%; min-height:92px; border-radius:16px; border:2p
   refs.importBtn.addEventListener('click', importGame);
   refs.resetBtn.addEventListener('click', resetGame);
   document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b===btn));
+    document.querySelectorAll('.tab').forEach(b => { b.classList.toggle('active', b===btn); b.setAttribute('aria-selected', String(b===btn)); });
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === `tab-${btn.dataset.tab}`));
   }));
   window.addEventListener('beforeunload', autosave);
   window.addEventListener('resize', () => { renderAll(); });
 
   loadGame();
-  addNews('まりもだらけ v2、起動。');
+  addNews('まりもだらけ v3、起動。');
   buildSprites();
 })();
 </script>
