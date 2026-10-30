@@ -258,6 +258,14 @@ document.addEventListener('DOMContentLoaded',()=>{
 @media(max-width:640px){.tabs{gap:4px!important;padding:3px 6px 9px!important}.tab{min-height:58px!important;padding:5px 2px!important}.tab .tab-label{font-size:.65rem!important}.tab .tab-icon{width:19px;height:19px}.v6-hud{font-size:9px;max-width:80%;white-space:normal}}
 </style><style id="v7-style">
 .v7-prop{position:absolute;width:clamp(35px,9vw,98px);height:auto;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 5px 4px #3a241854);pointer-events:none;transform:translateX(-50%);}
+#boxButton .hint{display:none!important;}
+.v7-prop[data-prop="water"]{width:clamp(58px,14vw,118px);}
+.v7-prop[data-prop="cushion"]{width:clamp(64px,16vw,130px);}
+.v7-prop[data-prop="scratcher"]{width:clamp(44px,11vw,86px);}
+.v7-prop[data-prop="tunnel"]{width:clamp(78px,18vw,145px);}
+.v7-prop[data-prop="boxes"]{width:clamp(64px,16vw,130px);}
+.v7-prop[data-prop="flowers"]{width:clamp(54px,13vw,110px);}
+.v7-prop[data-prop="stones"]{width:clamp(70px,17vw,138px);}
 .v6-decor-layer{pointer-events:none;z-index:2!important;}
 .v7-research-icon{width:44px;height:44px;object-fit:contain;image-rendering:pixelated;flex:none;}
 .v7-badge{width:27px;height:27px;object-fit:contain;vertical-align:middle;margin-right:7px;}
@@ -313,7 +321,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           <div class="box-area">
             <button id="boxButton" aria-label="段ボールをタップしてまりもを増やす">
               <img id="boxSprite" alt="まりもの段ボール基地">
-              <span class="hint">ここをタップ！</span>
+              
             </button>
           </div>
           <div class="runner-layer" id="runnerLayer"></div>
@@ -1118,11 +1126,29 @@ document.addEventListener('DOMContentLoaded',()=>{
   function renderDecor(){
     if(!v6Decor)return;
     v6Decor.innerHTML='';
-    const props=['water','cushion','scratcher','tunnel','boxes','flowers'];
-    const positions=[['7%','18%'],['83%','17%'],['21%','21%'],['68%','22%'],['10%','32%'],['78%','33%']];
-    for(let i=0;i<Math.min(props.length,state.v6.milestoneSeen.length);i++){
-      const e=document.createElement('img');e.className='v7-prop';e.alt='';e.src=window.MARIMO_V7_ASSETS[props[i]];
-      e.style.left=positions[i][0];e.style.bottom=positions[i][1];v6Decor.append(e);
+    const propLayout=[
+      {id:'water', left:'11%', bottom:'10%', z:5},
+      {id:'scratcher', left:'24%', bottom:'10%', z:5},
+      {id:'boxes', left:'17%', bottom:'21%', z:4},
+      {id:'tunnel', left:'76%', bottom:'10%', z:4},
+      {id:'cushion', left:'87%', bottom:'10%', z:5},
+      {id:'flowers', left:'88%', bottom:'22%', z:5},
+      {id:'stones', left:'73%', bottom:'9%', z:3}
+    ];
+    const unlocked=Math.min(propLayout.length, state.v6.milestoneSeen.length);
+    for(let i=0;i<unlocked;i++){
+      const conf=propLayout[i];
+      const src=(window.MARIMO_V7_ASSETS && window.MARIMO_V7_ASSETS[conf.id]) || window.MARIMO_V7_ASSETS?.flowers;
+      if(!src) continue;
+      const e=document.createElement('img');
+      e.className='v7-prop';
+      e.dataset.prop=conf.id;
+      e.alt='';
+      e.src=src;
+      e.style.left=conf.left;
+      e.style.bottom=conf.bottom;
+      e.style.zIndex=String(conf.z || 4);
+      v6Decor.append(e);
     }
   }
   function mountV6(){
